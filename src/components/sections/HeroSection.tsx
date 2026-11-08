@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, Download, ExternalLink, Github, Linkedin, Sparkles } from 'lucide-react';
+import { ArrowDown, Download, Github, Linkedin, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '@/data/content';
 import { MagneticButton } from '@/components/common/MagneticButton';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -12,25 +12,26 @@ export function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Scroll parallax for hero portrait
+  // Scroll parallax for hero portrait - modern hook
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
-  const imageY = useTransform(smoothProgress, [0, 1], ['0%', '16%']);
-  const textY = useTransform(smoothProgress, [0, 1], ['0%', '10%']);
+  const imageY = useTransform(smoothProgress, [0, 1], ['0%', '14%']);
+  const textY = useTransform(smoothProgress, [0, 1], ['0%', '8%']);
   const opacity = useTransform(smoothProgress, [0, 0.85], [1, 0.2]);
 
   return (
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 lg:py-0 overflow-hidden bg-bg"
+      className="relative min-h-screen flex items-center justify-center pt-36 sm:pt-40 md:pt-44 lg:pt-36 pb-20 lg:pb-28 overflow-hidden bg-bg"
     >
-      {/* Background ambient lighting - warm lime glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[450px] bg-accent/8 blur-[160px] pointer-events-none rounded-full -z-10" />
+      {/* Background ambient lighting - warm lime paired with subtle neon purple glow */}
+      <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[450px] sm:w-[650px] h-[400px] bg-accent/8 blur-[160px] pointer-events-none rounded-full -z-10" />
+      <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-[400px] sm:w-[600px] h-[420px] bg-purple/15 blur-[180px] pointer-events-none rounded-full -z-10" />
 
       {/* Decorative subtle grid */}
       <div
@@ -43,24 +44,24 @@ export function HeroSection() {
       />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           {/* Left Column: Bio & Text Content */}
           <motion.div
             style={prefersReducedMotion ? {} : { y: textY, opacity }}
             className="lg:col-span-7 flex flex-col items-start z-10"
           >
-            {/* Status Pill */}
+            {/* Status Pill with subtle purple & lime border */}
             <motion.div
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface/80 border border-white/10 backdrop-blur-md text-xs font-mono mb-6"
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-surface/80 border border-white/10 hover:border-purple/40 backdrop-blur-md text-xs font-sans mb-6 transition-colors shadow-sm"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              <span className="text-text-muted">Available for Contracts &bull; Building Next-Gen Startup</span>
+              <span className="text-text-muted font-medium">Available for Contracts &bull; Building Next-Gen Startup</span>
             </motion.div>
 
             {/* Main Headline */}
@@ -84,7 +85,7 @@ export function HeroSection() {
                 className="flex items-center gap-3 font-heading font-semibold text-xl sm:text-2xl md:text-3xl text-accent"
               >
                 <span>Full Stack Web Developer</span>
-                <span className="text-text-muted/40 font-mono text-sm">//</span>
+                <span className="text-text-muted/40 font-sans text-sm">//</span>
                 <span className="text-text-muted text-lg sm:text-xl font-normal hidden sm:inline">
                   CSE Student
                 </span>
@@ -112,7 +113,7 @@ export function HeroSection() {
               <MagneticButton strength={0.25}>
                 <a
                   href="#projects"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs sm:text-sm font-semibold text-bg bg-accent hover:bg-accent-hover transition-all duration-300 shadow-glow-accent hover:shadow-lg"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-sans text-sm font-semibold text-bg bg-accent hover:bg-accent-hover transition-all duration-300 shadow-glow-accent hover:shadow-glow-purple"
                 >
                   <span>View Selected Work</span>
                   <ArrowDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
@@ -124,9 +125,9 @@ export function HeroSection() {
                   href={PERSONAL_INFO.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-mono text-xs sm:text-sm font-medium text-text bg-surface/80 hover:bg-surface-light border border-white/10 hover:border-accent/40 transition-all duration-300"
+                  className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-sans text-sm font-medium text-text bg-surface/80 hover:bg-surface-light border border-white/10 hover:border-purple/50 transition-all duration-300"
                 >
-                  <Download className="w-4 h-4 text-accent transition-transform duration-300 group-hover:-translate-y-0.5" />
+                  <Download className="w-4 h-4 text-purple-light transition-transform duration-300 group-hover:-translate-y-0.5" />
                   <span>Resume / CV</span>
                 </a>
               </MagneticButton>
@@ -137,9 +138,9 @@ export function HeroSection() {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.65 }}
-              className="flex items-center gap-4 text-xs font-mono text-text-muted"
+              className="flex items-center gap-4 text-xs font-sans text-text-muted"
             >
-              <span className="text-text-muted/50 uppercase tracking-widest text-[10px]">Connect:</span>
+              <span className="text-text-muted/60 uppercase tracking-widest text-[10px] font-semibold">Connect:</span>
               <a
                 href={PERSONAL_INFO.socials.github.url}
                 target="_blank"
@@ -149,7 +150,7 @@ export function HeroSection() {
                 <Github className="w-3.5 h-3.5" />
                 <span>github.com/amirhamjaofc1</span>
               </a>
-              <span className="text-white/10">&bull;</span>
+              <span className="text-white/15">&bull;</span>
               <a
                 href={PERSONAL_INFO.socials.linkedin.url}
                 target="_blank"
@@ -162,22 +163,22 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Hero Portrait with Lime Rim Light & Grain & Parallax */}
+          {/* Right Column: Hero Portrait with safe top clearance, Lime Rim Light & Purple Accent */}
           <motion.div
             style={prefersReducedMotion ? {} : { y: imageY }}
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative flex items-center justify-center"
+            transition={{ duration: 0.85, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 relative flex items-center justify-center mt-6 lg:mt-0 pt-2 lg:pt-4"
           >
-            <div className="relative w-full max-w-[420px] lg:max-w-none aspect-[4/5] rounded-3xl overflow-hidden border border-white/[0.08] bg-surface-card group shadow-2xl">
+            <div className="relative w-full max-w-[400px] lg:max-w-[420px] aspect-[4/5] rounded-3xl overflow-hidden border border-white/[0.08] hover:border-purple/40 bg-surface-card group shadow-2xl transition-all duration-500">
               {/* Lime Rim Light on side (left edge glow) */}
               <div
                 aria-hidden="true"
                 className="absolute inset-0 pointer-events-none z-10"
                 style={{
                   background:
-                    'linear-gradient(110deg, rgba(215, 229, 42, 0.28) 0%, rgba(215, 229, 42, 0.08) 25%, transparent 60%)',
+                    'linear-gradient(110deg, rgba(215, 229, 42, 0.26) 0%, rgba(215, 229, 42, 0.08) 25%, transparent 60%)',
                 }}
               />
 
@@ -186,7 +187,7 @@ export function HeroSection() {
                 aria-hidden="true"
                 className="absolute inset-0 pointer-events-none z-10"
                 style={{
-                  boxShadow: 'inset 0 0 60px 20px #0B0B0D',
+                  boxShadow: 'inset 0 0 55px 18px #0B0B0D',
                 }}
               />
 
@@ -209,23 +210,23 @@ export function HeroSection() {
                 className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
               />
 
-              {/* Floating tech badge in corner */}
-              <div className="absolute bottom-5 left-5 right-5 z-20 flex items-center justify-between p-3.5 rounded-2xl bg-bg/80 backdrop-blur-md border border-white/10">
+              {/* Floating tech badge in corner with purple touch */}
+              <div className="absolute bottom-5 left-5 right-5 z-20 flex items-center justify-between p-3.5 rounded-2xl bg-bg/85 backdrop-blur-md border border-white/10 group-hover:border-purple/30 transition-colors">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center text-accent border border-accent/20">
+                  <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center text-purple-light border border-purple/30">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
                     <span className="block font-heading text-xs font-semibold text-text">
                       Startup Focus
                     </span>
-                    <span className="block font-mono text-[10px] text-text-muted">
+                    <span className="block font-sans text-[11px] text-text-muted">
                       Full-Stack Architecture
                     </span>
                   </div>
                 </div>
 
-                <div className="font-mono text-xs text-accent bg-accent/10 px-2.5 py-1 rounded-full border border-accent/20">
+                <div className="font-mono text-xs text-purple-light bg-purple/15 px-2.5 py-1 rounded-full border border-purple/30">
                   v2026.1
                 </div>
               </div>
@@ -236,4 +237,3 @@ export function HeroSection() {
     </section>
   );
 }
-

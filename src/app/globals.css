@@ -11,6 +11,8 @@
   --muted: #9A9AA3;
   --accent: #D7E52A;
   --accent-2: #D81B52;
+  --purple: #8B5CF6;
+  --purple-glow: rgba(139, 92, 246, 0.35);
   --detail: #1F8A8A;
 }
 
@@ -29,8 +31,6 @@ body {
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
-  selection-background-color: var(--accent);
-  selection-color: var(--bg);
 }
 
 ::selection {
@@ -80,7 +80,7 @@ html.lenis, html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D7E52A;
+  background: #8B5CF6;
 }
 
 /* Kinetic Animation Utilities */
@@ -108,4 +108,3 @@ html.lenis, html.lenis body {
     scroll-behavior: auto !important;
   }
 }
-

@@ -35,6 +35,13 @@ const config: Config = {
           glow: 'rgba(216, 27, 82, 0.4)',
           subtle: 'rgba(216, 27, 82, 0.1)',
         },
+        purple: {
+          DEFAULT: '#8B5CF6', // vibrant violet/purple preference
+          light: '#A78BFA',
+          hover: '#7C3AED',
+          glow: 'rgba(139, 92, 246, 0.4)',
+          subtle: 'rgba(139, 92, 246, 0.12)',
+        },
         detail: {
           DEFAULT: '#1F8A8A', // deep teal
           light: '#2aa6a6',
@@ -49,6 +56,7 @@ const config: Config = {
       boxShadow: {
         'glow-accent': '0 0 35px -5px rgba(215, 229, 42, 0.3)',
         'glow-crimson': '0 0 40px -5px rgba(216, 27, 82, 0.35)',
+        'glow-purple': '0 0 40px -5px rgba(139, 92, 246, 0.35)',
         'glow-card': '0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -5px rgba(215, 229, 42, 0.12)',
         'glow-teal': '0 0 25px -5px rgba(31, 138, 138, 0.35)',
       },

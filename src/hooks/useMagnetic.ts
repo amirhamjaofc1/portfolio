@@ -1,70 +1,35 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import { useMotionValue, useSpring } from 'framer-motion';
 
-interface UseMagneticOptions {
-  strength?: number;
-  textStrength?: number;
-  ease?: string;
-  duration?: number;
+export function useMagnetic(strength = 0.35) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { stiffness: 240, damping: 20 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    x.set((e.clientX - centerX) * strength);
+    y.set((e.clientY - centerY) * strength);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return {
+    style: { x: springX, y: springY },
+    onMouseMove: handleMouseMove,
+    onMouseLeave: handleMouseLeave,
+  };
 }
-
-export function useMagnetic<T extends HTMLElement = HTMLElement>(
-  options: UseMagneticOptions = {}
-) {
-  const ref = useRef<T>(null);
-  const {
-    strength = 0.35,
-    ease = 'power2.out',
-    duration = 0.8,
-  } = options;
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    // Check if device supports hover / is touch
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouch) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = element.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const deltaX = (e.clientX - centerX) * strength;
-      const deltaY = (e.clientY - centerY) * strength;
-
-      gsap.to(element, {
-        x: deltaX,
-        y: deltaY,
-        duration,
-        ease,
-        overwrite: 'auto',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(element, {
-        x: 0,
-        y: 0,
-        duration: 0.9,
-        ease: 'elastic.out(1, 0.3)',
-        overwrite: 'auto',
-      });
-    };
-
-    element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      element.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', handleMouseLeave);
-      gsap.killTweensOf(element);
-    };
-  }, [strength, ease, duration]);
-
-  return ref;
-}
-
