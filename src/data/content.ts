@@ -6,22 +6,22 @@ export const PERSONAL_INFO = {
     'Third-year Computer Science & Engineering student and self-driven software engineer building full-stack platforms and preparing to launch my own startup venture.',
   status: 'Open for high-impact roles, collaborations, and startup discussions',
   availableForWork: true,
-  
+
   // TODO: Update with your exact location and contact numbers
   email: 'amirhamja.dev@gmail.com', // TODO: replace with your primary email
   phone: '+880 1700-000000', // TODO: replace with your phone number
   whatsapp: '+880 1700-000000', // TODO: replace with your WhatsApp number
   location: 'Dhaka, Bangladesh', // TODO: update your city/country
   timezone: 'UTC+6 (BST)',
-  
+
   // TODO: Add your resume PDF to public/resume.pdf or link to Google Drive
   resumeUrl: '/resume.pdf',
-  
+
   // Education Details
   university: 'Computer Science & Engineering (3rd Year)', // TODO: update with your University name (e.g. Brac University, DIU, UIU, etc.)
   degree: 'Bachelor of Science in Computer Science & Engineering (B.Sc. CSE)',
   graduationYear: 'Expected 2027',
-  
+
   socials: {
     github: {
       name: 'GitHub',
@@ -74,9 +74,9 @@ export const PERSONAL_INFO = {
 };
 
 export const NAV_LINKS = [
-  { label: 'Work', href: '#projects', number: '03' },
   { label: 'About', href: '#about', number: '01' },
   { label: 'Skills', href: '#skills', number: '02' },
+  { label: 'Work', href: '#projects', number: '03' },
   { label: 'Journey', href: '#journey', number: '04' },
   { label: 'Contact', href: '#contact', number: '05' },
 ];
